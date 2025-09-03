@@ -53,12 +53,12 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 w-full">
-      <div className="w-full px-6 py-8">
+      <div className="w-full px-4 py-6 sm:px-6">
         <div className="min-h-[80vh] flex items-center justify-center max-w-[1400px] mx-auto">
           <div className="w-full max-w-md space-y-6">
         {/* Logo */}
         <div className="text-center">
-          <Link to="/" className="inline-flex items-center space-x-2">
+          <Link to="/" className="inline-flex items-center justify-center space-x-2 w-full">
             <Pill className="h-8 w-8 text-primary" />
             <span className="text-2xl font-bold text-primary">TelePharmacy</span>
           </Link>
@@ -89,6 +89,7 @@ const Login = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  className="h-12 text-base"
                 />
               </div>
 
@@ -103,24 +104,25 @@ const Login = () => {
                     value={formData.password}
                     onChange={handleChange}
                     required
+                    className="h-12 text-base pr-12"
                   />
                   <Button
                     type="button"
                     variant="ghost"
-                    size="sm"
+                    size="icon"
                     className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeOff className="h-5 w-5" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-5 w-5" />
                     )}
                   </Button>
                 </div>
               </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button type="submit" className="w-full h-12 text-base" disabled={loading}>
                 {loading ? 'Signing In...' : 'Sign In'}
               </Button>
             </form>
@@ -146,4 +148,3 @@ const Login = () => {
 }
 
 export default Login
-

@@ -380,28 +380,28 @@ const Catalogue = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 w-full">
-      <div className="w-full px-6 py-8">
+      <div className="w-full px-4 py-6 sm:px-6">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6 max-w-[1400px] mx-auto">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-4 sm:mb-6">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-            <div className="flex items-center gap-4">
-              <Pill className="h-8 w-8 text-blue-600" />
+            <div className="flex items-center gap-3 sm:gap-4">
+              <Pill className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 flex-shrink-0" />
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">Medicine Catalogue</h1>
-                <p className="text-gray-600 mt-1">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">Medicine Catalogue</h1>
+                <p className="text-xs sm:text-sm text-gray-600 mt-1">
                   Browse our wide selection of medicines and health products
                 </p>
               </div>
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 w-full lg:w-auto">
               {/* View Mode Toggle */}
               <div className="flex items-center border rounded-lg p-1">
                 <Button
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('grid')}
-                  className="p-2"
+                  className="p-2 h-9 w-9 sm:h-10 sm:w-10"
                 >
                   <Grid3X3 className="h-4 w-4" />
                 </Button>
@@ -409,19 +409,19 @@ const Catalogue = () => {
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('list')}
-                  className="p-2"
+                  className="p-2 h-9 w-9 sm:h-10 sm:w-10"
                 >
                   <List className="h-4 w-4" />
                 </Button>
               </div>
               
               {/* Sort Dropdown */}
-              <div className="flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-2">
                 <SortDesc className="h-4 w-4 text-gray-500" />
                 <select
                   value={sortBy}
                   onChange={(e) => handleSortChange(e.target.value)}
-                  className="h-10 px-3 py-2 text-sm border border-input bg-background rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="h-10 px-2 py-1 text-sm border border-input bg-background rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <option value="name">Sort by Name</option>
                   <option value="price_low">Price: Low to High</option>
@@ -434,39 +434,56 @@ const Catalogue = () => {
               <Button
                 variant="outline"
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden"
+                className="lg:hidden h-10 px-3 py-2 text-sm"
               >
-                <Filter className="h-4 w-4 mr-2" />
-                Filters
+                <Filter className="h-4 w-4 mr-1 sm:mr-2" />
+                <span className="hidden xs:block">Filters</span>
+                <span className="xs:hidden">Filter</span>
               </Button>
             </div>
           </div>
+          
+          {/* Mobile Sort Dropdown */}
+          <div className="mt-4 sm:hidden">
+            <Label className="text-sm font-medium mb-2 block">Sort By</Label>
+            <select
+              value={sortBy}
+              onChange={(e) => handleSortChange(e.target.value)}
+              className="w-full h-10 px-3 py-2 text-sm border border-input bg-background rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="name">Sort by Name</option>
+              <option value="price_low">Price: Low to High</option>
+              <option value="price_high">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+              <option value="popularity">Most Popular</option>
+            </select>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* Enhanced Filters Sidebar */}
           <div className={`lg:col-span-1 ${showFilters ? 'block' : 'hidden lg:block'}`}>
             <Card className="sticky top-4">
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
+              <CardHeader className="py-4 px-4 sm:px-6">
+                <CardTitle className="flex items-center justify-between text-base sm:text-lg">
                   <span className="flex items-center gap-2">
-                    <Filter className="h-5 w-5" />
+                    <Filter className="h-4 w-4 sm:h-5 sm:w-5" />
                     Filters
                   </span>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={clearFilters}
-                    className="text-sm text-blue-600 hover:text-blue-800"
+                    className="text-xs sm:text-sm text-blue-600 hover:text-blue-800 h-8 px-2"
                   >
                     Clear All
                   </Button>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-4 sm:space-y-6 py-4 px-4 sm:px-6">
                 {/* Search */}
                 <div className="space-y-2">
-                  <Label htmlFor="search" className="text-sm font-medium">Search Medicines</Label>
+                  <Label htmlFor="search" className="text-xs sm:text-sm font-medium">Search Medicines</Label>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <Input
@@ -474,14 +491,14 @@ const Catalogue = () => {
                       placeholder="Search by name, brand..."
                       value={filters.search}
                       onChange={(e) => handleFilterChange('search', e.target.value)}
-                      className="pl-10"
+                      className="pl-10 h-10 text-sm"
                     />
                   </div>
                 </div>
 
                 {/* Category */}
                 <div className="space-y-2">
-                  <Label htmlFor="category" className="text-sm font-medium">Category</Label>
+                  <Label htmlFor="category" className="text-xs sm:text-sm font-medium">Category</Label>
                   <select
                     id="category"
                     value={filters.category}
@@ -499,7 +516,7 @@ const Catalogue = () => {
 
                 {/* Price Range */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">Price Range</Label>
+                  <Label className="text-xs sm:text-sm font-medium">Price Range</Label>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <Input
@@ -509,6 +526,7 @@ const Catalogue = () => {
                         step="0.01"
                         value={filters.min_price}
                         onChange={(e) => handleFilterChange('min_price', e.target.value)}
+                        className="h-10 text-sm"
                       />
                     </div>
                     <div>
@@ -519,17 +537,18 @@ const Catalogue = () => {
                         step="0.01"
                         value={filters.max_price}
                         onChange={(e) => handleFilterChange('max_price', e.target.value)}
+                        className="h-10 text-sm"
                       />
                     </div>
                   </div>
-                  <div className="flex gap-2 mt-2">
+                  <div className="flex flex-wrap gap-1 sm:gap-2 mt-2">
                     {['10', '25', '50', '100'].map(price => (
                       <Button
                         key={price}
                         variant="outline"
                         size="sm"
                         onClick={() => handleFilterChange('max_price', price)}
-                        className="text-xs"
+                        className="text-xs h-8 px-2"
                       >
                         Under ${price}
                       </Button>
@@ -539,7 +558,7 @@ const Catalogue = () => {
 
                 {/* Prescription Required */}
                 <div className="space-y-2">
-                  <Label htmlFor="prescription" className="text-sm font-medium">Prescription</Label>
+                  <Label htmlFor="prescription" className="text-xs sm:text-sm font-medium">Prescription</Label>
                   <select
                     id="prescription"
                     value={filters.prescription_required}
@@ -554,13 +573,13 @@ const Catalogue = () => {
 
                 {/* Quick Filter Chips */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">Quick Filters</Label>
-                  <div className="flex flex-wrap gap-2">
+                  <Label className="text-xs sm:text-sm font-medium">Quick Filters</Label>
+                  <div className="flex flex-wrap gap-1 sm:gap-2">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => handleFilterChange('category', 'Pain Relief')}
-                      className="text-xs"
+                      className="text-xs h-8 px-2"
                     >
                       Pain Relief
                     </Button>
@@ -568,7 +587,7 @@ const Catalogue = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => handleFilterChange('category', 'Vitamins & Supplements')}
-                      className="text-xs"
+                      className="text-xs h-8 px-2"
                     >
                       Vitamins
                     </Button>
@@ -576,7 +595,7 @@ const Catalogue = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => handleFilterChange('prescription_required', 'false')}
-                      className="text-xs"
+                      className="text-xs h-8 px-2"
                     >
                       OTC Only
                     </Button>
@@ -587,24 +606,24 @@ const Catalogue = () => {
           </div>
 
           {/* Enhanced Results Section */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3 space-y-4 sm:space-y-6">
             {error && (
               <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
+                <AlertDescription className="text-sm">{error}</AlertDescription>
               </Alert>
             )}
 
             {loading ? (
-              <div className={`grid gap-6 ${
+              <div className={`grid gap-4 sm:gap-6 ${
                 viewMode === 'grid' 
                   ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
                   : 'grid-cols-1'
               }`}>
                 {[...Array(6)].map((_, i) => (
                   <Card key={i} className="animate-pulse">
-                    <CardContent className="p-6">
-                      <div className="h-48 bg-gray-200 rounded mb-4"></div>
+                    <CardContent className="p-4 sm:p-6">
+                      <div className="h-32 sm:h-48 bg-gray-200 rounded mb-3 sm:mb-4"></div>
                       <div className="space-y-2">
                         <div className="h-4 bg-gray-200 rounded"></div>
                         <div className="h-3 bg-gray-200 rounded w-3/4"></div>
@@ -617,21 +636,21 @@ const Catalogue = () => {
             ) : (
               <>
                 {/* Results Info */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-4">
-                    <p className="text-sm text-gray-600">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                    <p className="text-xs sm:text-sm text-gray-600">
                       Showing <span className="font-medium">{medicines.length}</span> of{' '}
                       <span className="font-medium">{pagination.total || medicines.length}</span> medicines
                     </p>
                     {(filters.search || filters.category || filters.min_price || filters.max_price) && (
-                      <Badge variant="secondary" className="flex items-center gap-1">
-                        <Filter className="h-3 w-3" />
+                      <Badge variant="secondary" className="flex items-center gap-1 text-xs py-0.5">
+                        <Filter className="h-2.5 w-2.5" />
                         Filtered
                       </Badge>
                     )}
                   </div>
                   {pagination.pages > 1 && (
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs sm:text-sm text-gray-600">
                       Page <span className="font-medium">{pagination.page}</span> of{' '}
                       <span className="font-medium">{pagination.pages}</span>
                     </p>
@@ -639,7 +658,7 @@ const Catalogue = () => {
                 </div>
 
                 {/* Medicine Grid/List */}
-                <div className={`grid gap-6 ${
+                <div className={`grid gap-4 sm:gap-6 ${
                   viewMode === 'grid' 
                     ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
                     : 'grid-cols-1'
@@ -650,12 +669,12 @@ const Catalogue = () => {
                     
                     return (
                       <Card key={medicine.id} className={`group hover:shadow-lg transition-all duration-200 ${
-                        viewMode === 'list' ? 'flex' : ''
+                        viewMode === 'list' ? 'flex flex-col sm:flex-row' : ''
                       } ${medicine.availability_status === 'out_of_stock' ? 'opacity-75' : ''}`}>
-                        <CardContent className={`p-0 ${viewMode === 'list' ? 'flex w-full' : ''}`}>
+                        <CardContent className={`p-0 ${viewMode === 'list' ? 'flex flex-col sm:flex-row w-full' : ''}`}>
                           {/* Product Image */}
                           <div className={`relative bg-gray-50 flex items-center justify-center ${
-                            viewMode === 'list' ? 'w-48 h-48' : 'h-48'
+                            viewMode === 'list' ? 'sm:w-48 h-48 sm:h-48' : 'h-40 sm:h-48'
                           } ${medicine.availability_status === 'out_of_stock' ? 'grayscale' : ''}`}>
                             <img 
                               src={medicine.image_url} 
@@ -667,16 +686,16 @@ const Catalogue = () => {
                               }}
                             />
                             <div className="hidden w-full h-full bg-gray-100 items-center justify-center text-gray-400">
-                              <Package className="h-12 w-12" />
+                              <Package className="h-8 w-8 sm:h-12 sm:w-12" />
                             </div>
                             
                             {/* Badges */}
                             <div className="absolute top-2 left-2 flex flex-col gap-1">
                               {medicine.is_featured && (
-                                <Badge className="bg-blue-500 text-white text-xs">Featured</Badge>
+                                <Badge className="bg-blue-500 text-white text-[0.6rem] sm:text-xs px-1.5 py-0.5">Featured</Badge>
                               )}
                               {medicine.discount_percentage > 0 && (
-                                <Badge className="bg-red-500 text-white text-xs">
+                                <Badge className="bg-red-500 text-white text-[0.6rem] sm:text-xs px-1.5 py-0.5">
                                   {medicine.discount_percentage}% OFF
                                 </Badge>
                               )}
@@ -687,54 +706,54 @@ const Catalogue = () => {
                               variant="ghost"
                               size="sm"
                               onClick={() => toggleWishlist(medicine.id)}
-                              className={`absolute top-2 right-2 p-2 rounded-full ${
+                              className={`absolute top-2 right-2 p-1.5 sm:p-2 rounded-full h-7 w-7 sm:h-8 sm:w-8 ${
                                 isInWishlist ? 'text-red-500 bg-white' : 'text-gray-400 bg-white/80'
                               } hover:bg-white`}
                             >
-                              <Heart className={`h-4 w-4 ${isInWishlist ? 'fill-current' : ''}`} />
+                              <Heart className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${isInWishlist ? 'fill-current' : ''}`} />
                             </Button>
                             
                             {medicine.availability_status === 'out_of_stock' && (
                               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                                <Badge variant="destructive">Out of Stock</Badge>
+                                <Badge variant="destructive" className="text-xs">Out of Stock</Badge>
                               </div>
                             )}
                           </div>
 
                           {/* Product Details */}
-                          <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
+                          <div className={`p-4 sm:p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
                             <div className={`space-y-3 ${viewMode === 'list' ? 'flex flex-col justify-between h-full' : ''}`}>
                               <div>
                                 {/* Title and Prescription Badge */}
                                 <div className="flex items-start justify-between gap-2 mb-2">
-                                  <h3 className="font-semibold text-lg leading-tight group-hover:text-blue-600 transition-colors">
+                                  <h3 className="font-semibold text-base sm:text-lg leading-tight group-hover:text-blue-600 transition-colors">
                                     {medicine.name}
                                   </h3>
                                   {medicine.prescription_required && (
-                                    <Badge variant="destructive" className="text-xs flex-shrink-0">
+                                    <Badge variant="destructive" className="text-[0.6rem] sm:text-xs px-1.5 py-0.5 flex-shrink-0">
                                       Rx
                                     </Badge>
                                   )}
                                 </div>
 
                                 {/* Brand and Category */}
-                                <p className="text-sm text-gray-600 mb-2">
+                                <p className="text-xs sm:text-sm text-gray-600 mb-2">
                                   <span className="font-medium">{medicine.brand}</span> • {medicine.category}
                                 </p>
 
                                 {/* Description */}
-                                <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+                                <p className="text-xs sm:text-sm text-gray-600 line-clamp-2 mb-2 sm:mb-3">
                                   {medicine.description}
                                 </p>
 
                                 {/* Rating and Reviews */}
                                 {medicine.rating && (
-                                  <div className="flex items-center gap-2 mb-3">
+                                  <div className="flex items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
                                     <div className="flex items-center">
                                       {[...Array(5)].map((_, i) => (
                                         <Star
                                           key={i}
-                                          className={`h-4 w-4 ${
+                                          className={`h-3 w-3 sm:h-4 sm:w-4 ${
                                             i < Math.floor(medicine.rating)
                                               ? 'text-yellow-400 fill-current'
                                               : 'text-gray-300'
@@ -742,8 +761,8 @@ const Catalogue = () => {
                                         />
                                       ))}
                                     </div>
-                                    <span className="text-sm font-medium">{medicine.rating}</span>
-                                    <span className="text-sm text-gray-500">({medicine.review_count})</span>
+                                    <span className="text-xs sm:text-sm font-medium">{medicine.rating}</span>
+                                    <span className="text-xs text-gray-500">({medicine.review_count})</span>
                                   </div>
                                 )}
                               </div>
@@ -751,24 +770,24 @@ const Catalogue = () => {
                               {/* Price and Stock */}
                               <div className="space-y-3">
                                 <div className="flex items-center justify-between">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-xl font-bold text-gray-900">
+                                  <div className="flex items-center gap-1 sm:gap-2">
+                                    <span className="text-lg sm:text-xl font-bold text-gray-900">
                                       ${medicine.price.toFixed(2)}
                                     </span>
                                     {medicine.original_price && medicine.original_price > medicine.price && (
-                                      <span className="text-sm text-gray-500 line-through">
+                                      <span className="text-xs sm:text-sm text-gray-500 line-through">
                                         ${medicine.original_price.toFixed(2)}
                                       </span>
                                     )}
                                   </div>
-                                  <Badge className={stockStatus.color} variant="secondary">
+                                  <Badge className={`${stockStatus.color} text-[0.6rem] sm:text-xs px-1.5 py-0.5`} variant="secondary">
                                     {stockStatus.text}
                                   </Badge>
                                 </div>
 
                                 {/* Medicine Details */}
                                 {(medicine.dosage_form || medicine.strength || medicine.pack_size) && (
-                                  <div className="text-xs text-gray-500 space-y-1">
+                                  <div className="text-[0.6rem] sm:text-xs text-gray-500 space-y-1">
                                     {medicine.dosage_form && <div>Form: {medicine.dosage_form}</div>}
                                     {medicine.strength && <div>Strength: {medicine.strength}</div>}
                                     {medicine.pack_size && <div>Pack: {medicine.pack_size}</div>}
@@ -777,21 +796,22 @@ const Catalogue = () => {
 
                                 {/* Action Buttons */}
                                 <div className={`flex gap-2 pt-2 ${
-                                  viewMode === 'list' ? 'flex-row' : 'flex-col'
+                                  viewMode === 'list' ? 'flex-row' : 'flex-col sm:flex-row'
                                 }`}>
                                   <Link to={`/product/${medicine.id}`} className="flex-1">
-                                    <Button variant="outline" size="sm" className="w-full">
-                                      <Eye className="h-4 w-4 mr-2" />
-                                      View Details
+                                    <Button variant="outline" size="sm" className="w-full h-8 sm:h-9 text-xs sm:text-sm">
+                                      <Eye className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                                      <span className="hidden xs:block">View Details</span>
+                                      <span className="xs:hidden">Details</span>
                                     </Button>
                                   </Link>
                                   <Button
                                     size="sm"
                                     onClick={() => handleAddToCart(medicine.id)}
                                     disabled={medicine.availability_status === 'out_of_stock'}
-                                    className="flex-1"
+                                    className="flex-1 h-8 sm:h-9 text-xs sm:text-sm"
                                   >
-                                    <ShoppingCart className="h-4 w-4 mr-2" />
+                                    <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                                     {medicine.availability_status === 'out_of_stock' ? 'Out of Stock' : 'Add to Cart'}
                                   </Button>
                                 </div>
@@ -805,11 +825,11 @@ const Catalogue = () => {
                 </div>
 
                 {medicines.length === 0 && !loading && (
-                  <div className="text-center py-16">
+                  <div className="text-center py-8 sm:py-16">
                     <div className="mb-6">
-                      <Package className="h-24 w-24 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">No medicines found</h3>
-                      <p className="text-gray-600 max-w-md mx-auto">
+                      <Package className="h-16 w-16 sm:h-24 sm:w-24 text-gray-300 mx-auto mb-4" />
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">No medicines found</h3>
+                      <p className="text-sm sm:text-base text-gray-600 max-w-md mx-auto px-4">
                         {filters.search || filters.category || filters.min_price || filters.max_price
                           ? 'Try adjusting your search criteria or filters to find what you\'re looking for.'
                           : 'It looks like our medicine catalog is currently empty. Please check back later.'}
@@ -818,10 +838,10 @@ const Catalogue = () => {
                     
                     {(filters.search || filters.category || filters.min_price || filters.max_price) && (
                       <div className="space-y-4">
-                        <Button onClick={clearFilters} variant="outline">
+                        <Button onClick={clearFilters} variant="outline" className="h-9 px-4 text-sm">
                           Clear All Filters
                         </Button>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-xs sm:text-sm text-gray-500">
                           <p>Suggestions:</p>
                           <ul className="mt-2 space-y-1">
                             <li>• Check your spelling</li>
@@ -836,26 +856,26 @@ const Catalogue = () => {
 
                 {/* Enhanced Pagination */}
                 {pagination.pages > 1 && (
-                  <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-600">
+                        <span className="text-xs sm:text-sm text-gray-600">
                           Showing {((pagination.page - 1) * 12) + 1} to{' '}
                           {Math.min(pagination.page * 12, pagination.total)} of{' '}
                           {pagination.total} results
                         </span>
                       </div>
                       
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 sm:gap-2">
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => handlePageChange(pagination.page - 1)}
                           disabled={!pagination.has_prev}
-                          className="flex items-center gap-1"
+                          className="flex items-center gap-1 h-8 sm:h-10 px-2 sm:px-4 text-xs sm:text-sm"
                         >
-                          <ChevronLeft className="h-4 w-4" />
-                          Previous
+                          <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+                          <span className="hidden xs:block">Previous</span>
                         </Button>
                         
                         <div className="flex items-center gap-1">
@@ -867,7 +887,7 @@ const Catalogue = () => {
                                 variant={pageNum === pagination.page ? 'default' : 'outline'}
                                 size="sm"
                                 onClick={() => handlePageChange(pageNum)}
-                                className="w-10 h-10"
+                                className="w-8 h-8 sm:w-10 sm:h-10 text-xs sm:text-sm"
                               >
                                 {pageNum}
                               </Button>
@@ -876,12 +896,12 @@ const Catalogue = () => {
                           
                           {pagination.pages > 5 && (
                             <>
-                              <span className="text-gray-400 px-2">...</span>
+                              <span className="text-gray-400 px-1 text-xs">...</span>
                               <Button
                                 variant={pagination.pages === pagination.page ? 'default' : 'outline'}
                                 size="sm"
                                 onClick={() => handlePageChange(pagination.pages)}
-                                className="w-10 h-10"
+                                className="w-8 h-8 sm:w-10 sm:h-10 text-xs sm:text-sm"
                               >
                                 {pagination.pages}
                               </Button>
@@ -894,10 +914,10 @@ const Catalogue = () => {
                           size="sm"
                           onClick={() => handlePageChange(pagination.page + 1)}
                           disabled={!pagination.has_next}
-                          className="flex items-center gap-1"
+                          className="flex items-center gap-1 h-8 sm:h-10 px-2 sm:px-4 text-xs sm:text-sm"
                         >
-                          Next
-                          <ChevronRight className="h-4 w-4" />
+                          <span className="hidden xs:block">Next</span>
+                          <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
                         </Button>
                       </div>
                     </div>

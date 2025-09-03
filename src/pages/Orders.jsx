@@ -250,36 +250,36 @@ const Orders = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 w-full">
-      <div className="w-full px-6 py-8">
+      <div className="w-full px-4 py-6 sm:px-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 max-w-[1400px] mx-auto">
-          <div className="flex items-center gap-4">
-            <Package className="h-8 w-8 text-blue-600" />
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <Package className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">My Orders</h1>
-              <p className="text-gray-600">Track and manage your pharmacy orders</p>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">My Orders</h1>
+              <p className="text-xs sm:text-sm text-gray-600">Track and manage your pharmacy orders</p>
             </div>
           </div>
-          <Button onClick={fetchOrders} disabled={loading}>
+          <Button onClick={fetchOrders} disabled={loading} className="h-10 px-3 text-sm">
             <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             {loading ? 'Loading...' : 'Refresh'}
           </Button>
         </div>
 
         {/* Search and Filter */}
-        <Card className="mb-6 max-w-[1400px] mx-auto">
-          <CardContent className="p-6">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1 relative">
+        <Card className="mb-5 sm:mb-6">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
                   placeholder="Search orders, medicines, or pharmacies..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 h-10 text-sm"
                 />
               </div>
-              <div className="sm:w-48">
+              <div>
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
@@ -296,49 +296,49 @@ const Orders = () => {
           </CardContent>
         </Card>
         {/* Orders List */}
-        <div className="space-y-4 max-w-[1400px] mx-auto">
+        <div className="space-y-4">
           {loading ? (
             // Loading State
             <div className="space-y-4">
               {[1, 2, 3].map((i) => (
                 <Card key={i} className="animate-pulse">
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-start mb-4">
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex justify-between items-start mb-3 sm:mb-4">
                       <div className="space-y-2">
-                        <div className="h-5 bg-gray-200 rounded w-32"></div>
                         <div className="h-4 bg-gray-200 rounded w-24"></div>
+                        <div className="h-3 bg-gray-200 rounded w-20"></div>
                       </div>
-                      <div className="h-6 bg-gray-200 rounded w-20"></div>
+                      <div className="h-5 bg-gray-200 rounded w-16"></div>
                     </div>
-                    <div className="h-4 bg-gray-200 rounded w-64"></div>
+                    <div className="h-3 bg-gray-200 rounded w-48"></div>
                   </CardContent>
                 </Card>
               ))}
             </div>
           ) : filteredOrders.length === 0 ? (
             // Empty State
-            <Card className="text-center py-16">
+            <Card className="text-center py-8 sm:py-16">
               <CardContent>
-                <Package className="h-24 w-24 text-gray-300 mx-auto mb-6" />
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                <Package className="h-16 w-16 sm:h-24 sm:w-24 text-gray-300 mx-auto mb-4 sm:mb-6" />
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
                   {searchQuery || statusFilter !== 'all' ? 'No matching orders found' : 'No orders yet'}
                 </h2>
-                <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 max-w-md mx-auto px-4">
                   {searchQuery || statusFilter !== 'all' 
                     ? 'Try adjusting your search criteria or filters.'
                     : 'Start shopping to see your orders here. We\'ll help you track everything from purchase to delivery.'
                   }
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                   <Link to="/catalogue">
-                    <Button size="lg" className="px-8">
-                      <ShoppingCart className="h-5 w-5 mr-2" />
+                    <Button size="default" className="px-4 sm:px-8 h-10 text-sm sm:text-base">
+                      <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                       Browse Medicines
                     </Button>
                   </Link>
                   <Link to="/pharmacies">
-                    <Button variant="outline" size="lg" className="px-8">
-                      <MapPin className="h-5 w-5 mr-2" />
+                    <Button variant="outline" size="default" className="px-4 sm:px-8 h-10 text-sm sm:text-base">
+                      <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                       Find Pharmacies
                     </Button>
                   </Link>
@@ -349,86 +349,87 @@ const Orders = () => {
             // Orders List
             filteredOrders.map((order) => (
               <Card key={order.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex flex-col gap-4">
                     {/* Order Info */}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        {getStatusIcon(order.status)}
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900">
+                    <div className="flex items-start gap-3">
+                      {getStatusIcon(order.status)}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2 mb-1">
+                          <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
                             Order #{order.order_number}
                           </h3>
-                          <p className="text-sm text-gray-600">
-                            {new Date(order.order_date).toLocaleDateString()} • {order.pharmacy.name}
-                          </p>
+                          <Badge className={`${getStatusColor(order.status)} text-xs`}>
+                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                          </Badge>
                         </div>
-                        <Badge className={getStatusColor(order.status)}>
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                        </Badge>
+                        <p className="text-xs sm:text-sm text-gray-600 truncate">
+                          {new Date(order.order_date).toLocaleDateString()} • {order.pharmacy.name}
+                        </p>
                       </div>
+                    </div>
 
-                      {/* Order Items Preview */}
-                      <div className="space-y-1 mb-3">
-                        {order.items.slice(0, 2).map((item) => (
-                          <p key={item.id} className="text-sm text-gray-600">
-                            {item.quantity}x {item.medicine.name}
-                          </p>
-                        ))}
-                        {order.items.length > 2 && (
-                          <p className="text-sm text-gray-500">
-                            +{order.items.length - 2} more items
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Order Details */}
-                      <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                        <div className="flex items-center gap-1">
-                          <span className="font-medium">Total:</span>
-                          <span className="text-gray-900 font-semibold">${order.total_amount.toFixed(2)}</span>
-                        </div>
-                        {order.tracking_number && (
-                          <div className="flex items-center gap-1">
-                            <Truck className="h-4 w-4" />
-                            <span>Tracking: {order.tracking_number}</span>
-                          </div>
-                        )}
-                        {order.estimated_delivery && (
-                          <div className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
-                            <span>Est. delivery: {new Date(order.estimated_delivery).toLocaleDateString()}</span>
-                          </div>
-                        )}
-                        {order.delivery_date && (
-                          <div className="flex items-center gap-1">
-                            <CheckCircle className="h-4 w-4 text-green-600" />
-                            <span>Delivered: {new Date(order.delivery_date).toLocaleDateString()}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Prescription Alert */}
-                      {order.items.some(item => item.medicine.prescription_required) && !order.prescription_verified && (
-                        <Alert className="mt-3">
-                          <AlertCircle className="h-4 w-4" />
-                          <AlertDescription>
-                            Prescription verification required. Please upload your prescription.
-                          </AlertDescription>
-                        </Alert>
+                    {/* Order Items Preview */}
+                    <div className="space-y-1">
+                      {order.items.slice(0, 2).map((item) => (
+                        <p key={item.id} className="text-xs sm:text-sm text-gray-600">
+                          {item.quantity}x {item.medicine.name}
+                        </p>
+                      ))}
+                      {order.items.length > 2 && (
+                        <p className="text-xs text-gray-500">
+                          +{order.items.length - 2} more items
+                        </p>
                       )}
                     </div>
 
+                    {/* Order Details */}
+                    <div className="flex flex-wrap gap-3 text-xs sm:text-sm text-gray-600">
+                      <div className="flex items-center gap-1">
+                        <span className="font-medium">Total:</span>
+                        <span className="text-gray-900 font-semibold">${order.total_amount.toFixed(2)}</span>
+                      </div>
+                      {order.tracking_number && (
+                        <div className="flex items-center gap-1">
+                          <Truck className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          <span className="truncate">Tracking: {order.tracking_number}</span>
+                        </div>
+                      )}
+                      {order.estimated_delivery && (
+                        <div className="flex items-center gap-1">
+                          <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          <span>Est. delivery: {new Date(order.estimated_delivery).toLocaleDateString()}</span>
+                        </div>
+                      )}
+                      {order.delivery_date && (
+                        <div className="flex items-center gap-1">
+                          <CheckCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-green-600" />
+                          <span>Delivered: {new Date(order.delivery_date).toLocaleDateString()}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Prescription Alert */}
+                    {order.items.some(item => item.medicine.prescription_required) && !order.prescription_verified && (
+                      <Alert className="py-2 px-3">
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertDescription className="text-xs">
+                          Prescription verification required. Please upload your prescription.
+                        </AlertDescription>
+                      </Alert>
+                    )}
+
                     {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row lg:flex-col gap-2 lg:w-40">
+                    <div className="flex flex-wrap gap-2 pt-2">
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => setSelectedOrder(order)}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-1.5 h-8 px-2.5 text-xs sm:text-sm"
                       >
-                        <Eye className="h-4 w-4" />
-                        View Details
+                        <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                        <span className="hidden xs:block">View Details</span>
+                        <span className="xs:hidden">Details</span>
                       </Button>
                       
                       {order.status === 'delivered' && (
@@ -436,18 +437,18 @@ const Orders = () => {
                           <Button
                             size="sm"
                             onClick={() => handleReorder(order.id)}
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-1.5 h-8 px-2.5 text-xs sm:text-sm"
                           >
-                            <RefreshCw className="h-4 w-4" />
-                            Reorder
+                            <RefreshCw className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                            <span className="hidden xs:block">Reorder</span>
                           </Button>
                           <Button
                             variant="outline"
                             size="sm"
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-1.5 h-8 px-2.5 text-xs sm:text-sm"
                           >
-                            <Download className="h-4 w-4" />
-                            Receipt
+                            <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                            <span className="hidden xs:block">Receipt</span>
                           </Button>
                         </>
                       )}
@@ -457,10 +458,10 @@ const Orders = () => {
                           variant="destructive"
                           size="sm"
                           onClick={() => handleCancelOrder(order.id)}
-                          className="flex items-center gap-2"
+                          className="flex items-center gap-1.5 h-8 px-2.5 text-xs sm:text-sm"
                         >
-                          <XCircle className="h-4 w-4" />
-                          Cancel
+                          <XCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          <span className="hidden xs:block">Cancel</span>
                         </Button>
                       )}
                     </div>
@@ -473,54 +474,54 @@ const Orders = () => {
 
         {/* Order Details Modal/Sidebar */}
         {selectedOrder && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="sticky top-0 bg-white border-b p-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-gray-900">
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
+            <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+              <div className="sticky top-0 bg-white border-b p-4 sm:p-6 flex items-center justify-between">
+                <h2 className="text-lg sm:text-2xl font-bold text-gray-900">
                   Order #{selectedOrder.order_number}
                 </h2>
                 <Button
                   variant="ghost"
                   onClick={() => setSelectedOrder(null)}
-                  className="p-2"
+                  className="p-1.5 sm:p-2 h-8 w-8 sm:h-10 sm:w-10"
                 >
-                  <XCircle className="h-6 w-6" />
+                  <XCircle className="h-5 w-5 sm:h-6 sm:w-6" />
                 </Button>
               </div>
 
-              <div className="p-6 space-y-6">
+              <div className="p-4 sm:p-6 space-y-5 sm:space-y-6">
                 {/* Order Status */}
                 <div className="flex items-center gap-3">
                   {getStatusIcon(selectedOrder.status)}
                   <div>
-                    <p className="text-lg font-semibold">
+                    <p className="text-base sm:text-lg font-semibold">
                       {selectedOrder.status.charAt(0).toUpperCase() + selectedOrder.status.slice(1)}
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs sm:text-sm text-gray-600">
                       Order placed on {new Date(selectedOrder.order_date).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-5 sm:gap-6">
                   {/* Order Items */}
                   <Card>
-                    <CardHeader>
-                      <CardTitle>Order Items</CardTitle>
+                    <CardHeader className="py-3 sm:py-4 px-4 sm:px-6">
+                      <CardTitle className="text-base sm:text-lg">Order Items</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="py-3 sm:py-4 px-4 sm:px-6 space-y-3 sm:space-y-4">
                       {selectedOrder.items.map((item) => (
                         <div key={item.id} className="flex justify-between items-start">
-                          <div className="flex-1">
-                            <p className="font-medium">{item.medicine.name}</p>
-                            <p className="text-sm text-gray-600">
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium text-sm sm:text-base truncate">{item.medicine.name}</p>
+                            <p className="text-xs sm:text-sm text-gray-600 truncate">
                               {item.medicine.brand} • {item.medicine.category}
                             </p>
-                            <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                            <p className="text-xs sm:text-sm text-gray-600">Qty: {item.quantity}</p>
                           </div>
-                          <div className="text-right">
-                            <p className="font-medium">${item.total_price.toFixed(2)}</p>
-                            <p className="text-sm text-gray-600">${item.unit_price.toFixed(2)} each</p>
+                          <div className="text-right ml-2">
+                            <p className="font-medium text-sm sm:text-base">${item.total_price.toFixed(2)}</p>
+                            <p className="text-xs sm:text-sm text-gray-600">${item.unit_price.toFixed(2)} each</p>
                           </div>
                         </div>
                       ))}
@@ -528,17 +529,17 @@ const Orders = () => {
                   </Card>
 
                   {/* Pharmacy & Delivery */}
-                  <div className="space-y-4">
+                  <div className="space-y-4 sm:space-y-5">
                     <Card>
-                      <CardHeader>
-                        <CardTitle>Pharmacy</CardTitle>
+                      <CardHeader className="py-3 sm:py-4 px-4 sm:px-6">
+                        <CardTitle className="text-base sm:text-lg">Pharmacy</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="py-3 sm:py-4 px-4 sm:px-6">
                         <div className="space-y-2">
-                          <p className="font-medium">{selectedOrder.pharmacy.name}</p>
-                          <p className="text-sm text-gray-600">{selectedOrder.pharmacy.address}</p>
-                          <div className="flex items-center gap-2 text-sm text-gray-600">
-                            <Phone className="h-4 w-4" />
+                          <p className="font-medium text-sm sm:text-base">{selectedOrder.pharmacy.name}</p>
+                          <p className="text-xs sm:text-sm text-gray-600">{selectedOrder.pharmacy.address}</p>
+                          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+                            <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                             {selectedOrder.pharmacy.phone}
                           </div>
                         </div>
@@ -546,11 +547,11 @@ const Orders = () => {
                     </Card>
 
                     <Card>
-                      <CardHeader>
-                        <CardTitle>Delivery Address</CardTitle>
+                      <CardHeader className="py-3 sm:py-4 px-4 sm:px-6">
+                        <CardTitle className="text-base sm:text-lg">Delivery Address</CardTitle>
                       </CardHeader>
-                      <CardContent>
-                        <div className="space-y-1 text-sm">
+                      <CardContent className="py-3 sm:py-4 px-4 sm:px-6">
+                        <div className="space-y-1 text-xs sm:text-sm">
                           <p>{selectedOrder.delivery_address.address_line_1}</p>
                           {selectedOrder.delivery_address.address_line_2 && (
                             <p>{selectedOrder.delivery_address.address_line_2}</p>
@@ -566,34 +567,34 @@ const Orders = () => {
 
                 {/* Order Summary */}
                 <Card>
-                  <CardHeader>
-                    <CardTitle>Order Summary</CardTitle>
+                  <CardHeader className="py-3 sm:py-4 px-4 sm:px-6">
+                    <CardTitle className="text-base sm:text-lg">Order Summary</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="py-3 sm:py-4 px-4 sm:px-6">
                     <div className="space-y-2">
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-xs sm:text-sm">
                         <span>Subtotal</span>
                         <span>${(selectedOrder.total_amount - selectedOrder.shipping_fee - selectedOrder.tax_amount + selectedOrder.discount_amount).toFixed(2)}</span>
                       </div>
                       {selectedOrder.discount_amount > 0 && (
-                        <div className="flex justify-between text-green-600">
+                        <div className="flex justify-between text-xs sm:text-sm text-green-600">
                           <span>Discount</span>
                           <span>-${selectedOrder.discount_amount.toFixed(2)}</span>
                         </div>
                       )}
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-xs sm:text-sm">
                         <span>Shipping</span>
                         <span>${selectedOrder.shipping_fee.toFixed(2)}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-xs sm:text-sm">
                         <span>Tax</span>
                         <span>${selectedOrder.tax_amount.toFixed(2)}</span>
                       </div>
-                      <div className="border-t pt-2 flex justify-between font-semibold text-lg">
+                      <div className="border-t pt-2 flex justify-between font-semibold text-base sm:text-lg">
                         <span>Total</span>
                         <span>${selectedOrder.total_amount.toFixed(2)}</span>
                       </div>
-                      <div className="text-sm text-gray-600 mt-2">
+                      <div className="text-xs sm:text-sm text-gray-600 mt-2">
                         Paid via {selectedOrder.payment_method}
                       </div>
                     </div>
@@ -601,27 +602,31 @@ const Orders = () => {
                 </Card>
 
                 {/* Action Buttons */}
-                <div className="flex flex-wrap gap-3 pt-4 border-t">
+                <div className="flex flex-wrap gap-2 sm:gap-3 pt-4 border-t">
                   {selectedOrder.status === 'delivered' && (
                     <>
-                      <Button onClick={() => handleReorder(selectedOrder.id)}>
-                        <RefreshCw className="h-4 w-4 mr-2" />
-                        Reorder Items
+                      <Button onClick={() => handleReorder(selectedOrder.id)} className="h-9 px-3 text-xs sm:text-sm">
+                        <RefreshCw className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+                        <span className="hidden xs:block">Reorder Items</span>
+                        <span className="xs:hidden">Reorder</span>
                       </Button>
-                      <Button variant="outline">
-                        <Download className="h-4 w-4 mr-2" />
-                        Download Receipt
+                      <Button variant="outline" className="h-9 px-3 text-xs sm:text-sm">
+                        <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+                        <span className="hidden xs:block">Download Receipt</span>
+                        <span className="xs:hidden">Receipt</span>
                       </Button>
-                      <Button variant="outline">
-                        <Star className="h-4 w-4 mr-2" />
-                        Rate Order
+                      <Button variant="outline" className="h-9 px-3 text-xs sm:text-sm">
+                        <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+                        <span className="hidden xs:block">Rate Order</span>
+                        <span className="xs:hidden">Rate</span>
                       </Button>
                     </>
                   )}
                   {selectedOrder.tracking_number && (
-                    <Button variant="outline">
-                      <Truck className="h-4 w-4 mr-2" />
-                      Track Package
+                    <Button variant="outline" className="h-9 px-3 text-xs sm:text-sm">
+                      <Truck className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+                      <span className="hidden xs:block">Track Package</span>
+                      <span className="xs:hidden">Track</span>
                     </Button>
                   )}
                 </div>

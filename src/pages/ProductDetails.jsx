@@ -87,7 +87,7 @@ const ProductDetails = () => {
     return (
       <div className="space-y-6">
         <Link to="/catalogue">
-          <Button variant="ghost">
+          <Button variant="ghost" className="h-10 px-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Catalogue
           </Button>
@@ -102,62 +102,62 @@ const ProductDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 w-full">
-      <div className="w-full px-6 py-8">
+      <div className="w-full px-4 py-6 sm:px-6">
         <div className="max-w-[1400px] mx-auto space-y-6">
       {/* Back Button */}
       <Link to="/catalogue">
-        <Button variant="ghost">
+        <Button variant="ghost" className="h-10 px-4 text-sm">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Catalogue
         </Button>
       </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Product Image */}
         <div className="space-y-4">
           <Card>
-            <CardContent className="p-6">
-              <div className="h-96 bg-gray-100 rounded-lg flex items-center justify-center">
-                <span className="text-gray-400">No Image Available</span>
+            <CardContent className="p-4 sm:p-6">
+              <div className="h-64 sm:h-96 bg-gray-100 rounded-lg flex items-center justify-center">
+                <span className="text-gray-400 text-sm sm:text-base">No Image Available</span>
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Product Info */}
-        <div className="space-y-6">
+        <div className="space-y-5 sm:space-y-6">
           <div>
-            <div className="flex items-start justify-between mb-2">
-              <h1 className="text-3xl font-bold text-gray-900">{medicine.name}</h1>
+            <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">{medicine.name}</h1>
               {medicine.prescription_required && (
-                <Badge variant="destructive">
+                <Badge variant="destructive" className="text-xs sm:text-sm">
                   Prescription Required
                 </Badge>
               )}
             </div>
-            <p className="text-lg text-gray-600">{medicine.brand}</p>
-            <p className="text-sm text-gray-500">{medicine.category}</p>
+            <p className="text-base sm:text-lg text-gray-600">{medicine.brand}</p>
+            <p className="text-xs sm:text-sm text-gray-500">{medicine.category}</p>
           </div>
 
-          <div className="text-3xl font-bold text-primary">
+          <div className="text-2xl sm:text-3xl font-bold text-primary">
             ${medicine.price}
           </div>
 
           {medicine.description && (
             <div>
-              <h3 className="font-semibold mb-2">Description</h3>
-              <p className="text-gray-700">{medicine.description}</p>
+              <h3 className="font-semibold mb-2 text-base sm:text-lg">Description</h3>
+              <p className="text-gray-700 text-sm sm:text-base">{medicine.description}</p>
             </div>
           )}
 
           {/* Availability */}
           <div className="flex items-center gap-2">
-            <Package className="h-5 w-5 text-gray-500" />
+            <Package className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
             <span className="text-sm">
               Status: 
               <Badge 
                 variant={medicine.availability_status === 'available' ? 'default' : 'secondary'}
-                className="ml-2"
+                className="ml-2 text-xs"
               >
                 {medicine.availability_status}
               </Badge>
@@ -165,16 +165,16 @@ const ProductDetails = () => {
           </div>
 
           {medicine.stock_quantity > 0 && (
-            <p className="text-sm text-gray-600">
+            <p className="text-xs sm:text-sm text-gray-600">
               {medicine.stock_quantity} units in stock
             </p>
           )}
 
           {/* Prescription Warning */}
           {medicine.prescription_required && (
-            <Alert>
+            <Alert className="py-3 px-4">
               <Shield className="h-4 w-4" />
-              <AlertDescription>
+              <AlertDescription className="text-xs sm:text-sm">
                 This medicine requires a valid prescription. You'll need to provide it during checkout.
               </AlertDescription>
             </Alert>
@@ -184,16 +184,16 @@ const ProductDetails = () => {
           {medicine.availability_status === 'available' && (
             <Card>
               <CardContent className="p-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
                     <label htmlFor="quantity" className="text-sm font-medium">
-                      Quantity:
+                      Qty:
                     </label>
                     <select
                       id="quantity"
                       value={quantity}
                       onChange={(e) => setQuantity(parseInt(e.target.value))}
-                      className="border border-gray-300 rounded px-3 py-1 text-sm"
+                      className="border border-gray-300 rounded px-2 py-1 text-sm h-10"
                     >
                       {[...Array(Math.min(10, medicine.stock_quantity))].map((_, i) => (
                         <option key={i + 1} value={i + 1}>
@@ -204,10 +204,10 @@ const ProductDetails = () => {
                   </div>
                   <Button 
                     onClick={handleAddToCart}
-                    className="flex-1"
-                    size="lg"
+                    className="w-full sm:w-auto h-10"
+                    size="default"
                   >
-                    <ShoppingCart className="h-5 w-5 mr-2" />
+                    <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                     Add to Cart
                   </Button>
                 </div>
@@ -216,16 +216,16 @@ const ProductDetails = () => {
           )}
 
           {/* Features */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <Truck className="h-5 w-5 text-primary" />
+              <Truck className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
               <div>
                 <p className="font-medium text-sm">Free Delivery</p>
                 <p className="text-xs text-gray-600">On orders over $50</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <Shield className="h-5 w-5 text-primary" />
+              <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
               <div>
                 <p className="font-medium text-sm">Verified Quality</p>
                 <p className="text-xs text-gray-600">Licensed pharmacy</p>
@@ -241,4 +241,3 @@ const ProductDetails = () => {
 }
 
 export default ProductDetails
-

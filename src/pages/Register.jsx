@@ -69,12 +69,12 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 w-full">
-      <div className="w-full px-6 py-8">
+      <div className="w-full px-4 py-6 sm:px-6">
         <div className="min-h-[80vh] flex items-center justify-center max-w-[1400px] mx-auto">
           <div className="w-full max-w-md space-y-6">
         {/* Logo */}
         <div className="text-center">
-          <Link to="/" className="inline-flex items-center space-x-2">
+          <Link to="/" className="inline-flex items-center justify-center space-x-2 w-full">
             <Pill className="h-8 w-8 text-primary" />
             <span className="text-2xl font-bold text-primary">TelePharmacy</span>
           </Link>
@@ -95,7 +95,7 @@ const Register = () => {
                 </Alert>
               )}
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="first_name">First Name</Label>
                   <Input
@@ -106,6 +106,7 @@ const Register = () => {
                     value={formData.first_name}
                     onChange={handleChange}
                     required
+                    className="h-12 text-base"
                   />
                 </div>
                 <div className="space-y-2">
@@ -118,6 +119,7 @@ const Register = () => {
                     value={formData.last_name}
                     onChange={handleChange}
                     required
+                    className="h-12 text-base"
                   />
                 </div>
               </div>
@@ -132,6 +134,7 @@ const Register = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  className="h-12 text-base"
                 />
               </div>
 
@@ -144,6 +147,7 @@ const Register = () => {
                   placeholder="+1 (555) 123-4567"
                   value={formData.phone}
                   onChange={handleChange}
+                  className="h-12 text-base"
                 />
               </div>
 
@@ -158,18 +162,19 @@ const Register = () => {
                     value={formData.password}
                     onChange={handleChange}
                     required
+                    className="h-12 text-base pr-12"
                   />
                   <Button
                     type="button"
                     variant="ghost"
-                    size="sm"
+                    size="icon"
                     className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeOff className="h-5 w-5" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-5 w-5" />
                     )}
                   </Button>
                 </div>
@@ -186,24 +191,25 @@ const Register = () => {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     required
+                    className="h-12 text-base pr-12"
                   />
                   <Button
                     type="button"
                     variant="ghost"
-                    size="sm"
+                    size="icon"
                     className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   >
                     {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeOff className="h-5 w-5" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-5 w-5" />
                     )}
                   </Button>
                 </div>
               </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button type="submit" className="w-full h-12 text-base" disabled={loading}>
                 {loading ? 'Creating Account...' : 'Create Account'}
               </Button>
             </form>
@@ -229,4 +235,3 @@ const Register = () => {
 }
 
 export default Register
-
